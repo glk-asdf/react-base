@@ -1,3 +1,107 @@
+# react-base
+
+## 创建 react 单页应用
+
+~~~
+npx create-react-app react-base 
+~~~ 
+
+## cdn
+
+* cdn 中建议使用 crossorigin 属性，可以查看到报错内容
+
+## jsx
+
+> jsx 是 javascript 的语法扩展
+
+* jsx 在花括号中放置 js 代码
+* 建议将标签内容放置在括号中，可以避免自动插入分号陷阱
+* jsx 也是表达式，可以像正常的表达式一样使用
+* 可以通过引号将属性值指定为字符串字面量(添加静态属性)，也可以通过花括号添加 javascript 表达式，对于同一属性不能同时使用这两种符号
+* jsx 主要基于 javascript 规则，标签属性使用 camelCase（小驼峰命名）定义属性名称
+    1. class -> className   
+    ...
+* 一个标签中没有子元素，可以使用单标签（ /> 闭合标签），就像 xml 一样
+
+## 绑定事件
+
+> 元素绑定事件时，handle 函数会重新指定 this，所以需要做处理
+
+1. 函数改为箭头函数
+    ~~~
+    class app extend React.component{
+        state: {
+            title: 'hello'
+        }
+        handle = ()=>{
+            console.log(this.state.title)
+        }
+        reader () {
+            return <div>
+                <butten onClick={this.handle} ></butten>
+            </div>
+        }
+    }
+    ~~~
+
+2. 使用闭包
+    ~~~
+    class app extend React.component{
+        state: {
+            title: 'hello'
+        }
+        handle () {
+            console.log(this.state.title)
+        }
+        reader () {
+            return <div>
+                <butten onClick={() => {this.handle()}} ></butten>
+            </div>
+        }
+    }
+    ~~~
+
+3. 绑定并覆盖
+    ~~~
+    class app extend React.component{
+        constructor (props) {
+            super(props)
+            this.handle = this.handle.bind(this)
+        }
+        state: {
+            title: 'hello'
+        }
+        handle () {
+            console.log(this.state.title)
+        }
+        reader () {
+            return <div>
+                <butten onClick={this.handle} ></butten>
+            </div>
+        }
+    }
+    ~~~
+
+4. 调用时绑定
+    ~~~
+    class app extend React.component{
+        state: {
+            title: 'hello'
+        }
+        handle () {
+            console.log(this.state.title)
+        }
+        reader () {
+            return <div>
+                <butten onClick={this.handle.bind(this)} ></butten>
+            </div>
+        }
+    }
+    ~~~
+
+    
+# react-app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
